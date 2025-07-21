@@ -1,0 +1,74 @@
+.homeMain {
+  flex: 1;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  align-items: stretch;
+  box-sizing: border-box;
+}
+
+.articleLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  max-height: fit-content;
+}
+
+.article {
+  background-color: rgb(57, 57, 57);
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 0 0 1px rgba(100, 100, 100, 0.6);
+  cursor: pointer;
+}
+
+.article:hover {
+  box-shadow: 0 0 0 1px rgba(100, 100, 100, 1);
+}
+
+.avatar {
+  width: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.article h2 {
+  min-height: 4rem;
+  margin-top: 4px;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+
+  display: box;
+  box-orient: vertical;
+  line-clamp: 2;
+}
+
+.tag {
+  color: rgb(178, 191, 202);
+  box-shadow: 0 0 0 1px rgba(100, 100, 100, 0.6);
+  padding: 4px 6px;
+  font-size: 0.8rem;
+  border-radius: 8px;
+}
+
+.article p {
+  color: rgb(225, 241, 255);
+  font-size: 0.85rem;
+}
+
+.preview {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+@media (max-width = 800px) {
+}
