@@ -1,3 +1,4 @@
+// utils/generateKeys.js
 import { generateKeyPairSync } from "node:crypto";
 import fs from "node:fs/promises";
 import { dirname, join } from "node:path";
@@ -5,7 +6,21 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-export async function generateKeys() {
+const keysDir = join(__dirname, "../keys");
+const privatePath = join(keysDir, "private.pem");
+const publicPath = join(keysDir, "public.pem");
+
+async function generateKeys() {
+  // Check if keys already exist
+  try {
+    await fs.access(privatePath);
+    await fs.access(publicPath);
+    console.log("✅ Keys already exist. Skipping generation.");
+    return;
+  } catch (err) {
+    // Continue only if files don't exist
+  }
+
   const { privateKey, publicKey } = generateKeyPairSync("rsa", {
     modulusLength: 2048,
     publicKeyEncoding: {
@@ -18,12 +33,9 @@ export async function generateKeys() {
     },
   });
 
-  const keysDir = join(__dirname, "../keys");
-  
   await fs.mkdir(keysDir, { recursive: true });
-
-  await fs.writeFile(join(keysDir, "private.pem"), privateKey);
-  await fs.writeFile(join(keysDir, "public.pem"), publicKey);
+  await fs.writeFile(privatePath, privateKey);
+  await fs.writeFile(publicPath, publicKey);
 
   console.log("🔑 Keys generated and saved in /keys folder!");
 }
