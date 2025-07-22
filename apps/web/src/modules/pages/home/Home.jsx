@@ -13,7 +13,7 @@ export default function Home({ baseUrl }) {
 
   useEffect(() => {
     fetch(
-      `${baseUrl}api.odin.blog/v1/posts/${queryString ? `search?${queryString}` : ''}`,
+      `${baseUrl}/api.odin.blog/v1/posts/${queryString ? `search?${queryString}` : ''}`,
       {
         mode: 'cors',
         method: 'GET',

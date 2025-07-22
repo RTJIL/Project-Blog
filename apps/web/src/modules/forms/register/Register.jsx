@@ -12,7 +12,7 @@ export default function Register({ onRegisterSuccess, baseUrl }) {
 
     try {
       const res = await fetch(
-        `${baseUrl}api.odin.blog/v1/auth/register`, // adjust this route to match your backend
+        `${baseUrl}/api.odin.blog/v1/auth/register`, // adjust this route to match your backend
         {
           method: 'POST',
           headers: {

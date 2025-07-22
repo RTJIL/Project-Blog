@@ -14,7 +14,7 @@ export default function PostDetail({ baseUrl, user }) {
   useEffect(() => {
     setLoading(true)
 
-    fetch(`${baseUrl}api.odin.blog/v1/posts/${params.postId}`, {
+    fetch(`${baseUrl}/api.odin.blog/v1/posts/${params.postId}`, {
       mode: 'cors',
       method: 'GET',
       headers: {
@@ -26,7 +26,7 @@ export default function PostDetail({ baseUrl, user }) {
       .then((post) => setPost(post))
       .catch((err) => console.error(err.message))
 
-    fetch(`${baseUrl}api.odin.blog/v1/comments/${params.postId}`, {
+    fetch(`${baseUrl}/api.odin.blog/v1/comments/${params.postId}`, {
       mode: 'cors',
       method: 'GET',
       headers: {
@@ -46,7 +46,7 @@ export default function PostDetail({ baseUrl, user }) {
     const comment = formData.get('comment')
 
     const createComment = async () => {
-      const res = await fetch(`${baseUrl}api.odin.blog/v1/comments`, {
+      const res = await fetch(`${baseUrl}/api.odin.blog/v1/comments`, {
         mode: 'cors',
         method: 'POST',
         headers: {
