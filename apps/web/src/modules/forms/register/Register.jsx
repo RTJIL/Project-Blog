@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styles from '../login/Login.module.css' // same CSS styles, reuse the drip
 
-export default function Register({ onRegisterSuccess }) {
+export default function Register({ onRegisterSuccess, baseUrl }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
@@ -12,7 +12,7 @@ export default function Register({ onRegisterSuccess }) {
 
     try {
       const res = await fetch(
-        'http://localhost:3000/api.odin.blog/v1/auth/register', // adjust this route to match your backend
+        `${baseUrl}api.odin.blog/v1/auth/register`, // adjust this route to match your backend
         {
           method: 'POST',
           headers: {

@@ -2,24 +2,21 @@ import { useState } from 'react'
 import styles from './Login.module.css'
 import { Link } from 'react-router-dom'
 
-export default function LogIn({ onLoginSuccess }) {
+export default function LogIn({ onLoginSuccess, baseUrl }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
 
   const logIn = async () => {
     try {
-      const res = await fetch(
-        'http://localhost:3000/api.odin.blog/v1/auth/log-in',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ username, password }),
-          mode: 'cors',
-        }
-      )
+      const res = await fetch(`${baseUrl}api.odin.blog/v1/auth/log-in`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+        mode: 'cors',
+      })
 
       //✅Authorized successfuly, your token: ${token}
 

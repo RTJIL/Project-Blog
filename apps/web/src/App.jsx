@@ -135,7 +135,7 @@ function App() {
           path="/login"
           element={
             !isAuth ? (
-              <LogIn onLoginSuccess={handleLogin} />
+              <LogIn onLoginSuccess={handleLogin} baseUrl={baseUrl} />
             ) : (
               <Navigate to="/" replace />
             )
@@ -145,7 +145,7 @@ function App() {
           path="/register"
           element={
             !isAuth ? (
-              <Register onLoginSuccess={handleLogin} />
+              <Register onLoginSuccess={handleLogin} baseUrl={baseUrl} />
             ) : (
               <Navigate to="/" replace />
             )
