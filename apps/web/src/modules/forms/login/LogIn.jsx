@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import styles from './Login.module.css'
+import { Link } from 'react-router-dom'
 
 export default function LogIn({ onLoginSuccess }) {
   const [username, setUsername] = useState('')
@@ -25,8 +26,7 @@ export default function LogIn({ onLoginSuccess }) {
       if (!res.ok) throw new Error('server error')
 
       const data = await res.json()
-      localStorage.setItem('Bearer', data.token)
-      onLoginSuccess()
+      onLoginSuccess(data.token)
     } catch (err) {
       setMessage(`⛔Something went wrong: ${err.message}`)
     }
@@ -35,7 +35,6 @@ export default function LogIn({ onLoginSuccess }) {
   return (
     <div className={styles.formContainer}>
       <form action={logIn} className={styles.form}>
-
         <input
           type="text"
           name="username"
@@ -55,7 +54,11 @@ export default function LogIn({ onLoginSuccess }) {
         <button type="submit">Log in</button>
       </form>
 
-      {message && <p>{message}</p>}
+      <Link to={'/register'} className={styles.register}>
+        Register
+      </Link>
+
+      {message && <p className={styles.message}>{message}</p>}
     </div>
   )
 }

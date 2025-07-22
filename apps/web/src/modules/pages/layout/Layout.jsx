@@ -1,14 +1,52 @@
-import { useState } from 'react'
-import { Outlet } from 'react-router-dom'
+import { useState, useEffect, useRef } from 'react'
+import { Outlet, useNavigate } from 'react-router-dom'
 import styles from './Layout.module.css'
 import { IoSearch } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
-import { FaLinkedin } from 'react-icons/fa'
+import { FaLinkedin, FaGithub } from 'react-icons/fa'
 
-export default function Layout() {
+export default function Layout({ user, logout }) {
   const [search, setSearch] = useState('')
-  const handleSearch = () => {}
 
+  const [showPopup, setShowPopup] = useState(false)
+  const popupRef = useRef(null)
+
+  const [isOverflowed, setIsOverflowed] = useState(false)
+  const nameRef = useRef()
+
+  const navigate = useNavigate()
+
+  const handleClickOutside = (e) => {
+    if (
+      popupRef.current &&
+      !popupRef.current.contains(e.target) &&
+      !nameRef.current.contains(e.target)
+    ) {
+      setShowPopup(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
+
+  useEffect(() => {
+    const el = nameRef.current
+    if (el && el.scrollWidth > el.clientWidth) {
+      setIsOverflowed(true)
+    }
+  }, [user.username])
+
+  const handleSearch = () => {
+    const trimmed = search.trim()
+    if (trimmed) {
+      navigate(`/?search=${encodeURIComponent(trimmed)}`)
+      setSearch('')
+    }
+  }
   return (
     <div className={styles.homeContainer}>
       <header>
@@ -34,7 +72,25 @@ export default function Layout() {
             }}
           />
         </form>
-        <span className={styles.name}>your name</span>
+        <span
+          ref={nameRef}
+          onClick={() => setShowPopup((prev) => !prev)}
+          className={`${styles.name} ${isOverflowed ? styles.overflowed : ''}`}
+        >
+          {user.username}
+        </span>
+
+        {showPopup && (
+          <div ref={popupRef} className={styles.popup}>
+            <button
+              onClick={() => {
+                logout()
+              }}
+            >
+              Logout
+            </button>
+          </div>
+        )}
       </header>
 
       <Outlet />
@@ -46,6 +102,14 @@ export default function Layout() {
           target="_blank"
         >
           <FaLinkedin className={styles.linkedIn} />
+        </Link>
+
+        <Link
+          className={styles.socialLink}
+          to="https://github.com/RTJIL"
+          target="_blank"
+        >
+          <FaGithub className={styles.github} />
         </Link>
       </footer>
     </div>

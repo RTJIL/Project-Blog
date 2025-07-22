@@ -10,6 +10,16 @@ export const postsController = {
     }
   },
 
+  getPostsByQuery: async (req, res, next) => {
+    const { search } = req.query;
+    try {
+      const posts = await postsService.getPostsByQuery(search);
+      return res.status(200).json(posts);
+    } catch (err) {
+      next(err);
+    }
+  },
+
   getPostById: async (req, res, next) => {
     const postId = Number(req.params.postId);
 
@@ -33,7 +43,7 @@ export const postsController = {
           content: data.content,
           cover_url: data.cover_url,
           read_time: data.read_time,
-          authorId: req.user.id,
+          authorId: Number(req.user.id),
         },
       });
       return res.status(200).json(posts);
@@ -65,4 +75,22 @@ export const postsController = {
 "password": "rtt"
 }
 
+ */
+
+/**
+ {
+"message": "cool stuff",
+"postId": "2",
+"authorId": "3",
+}
+ */
+
+/**
+ {
+  "tagName": "AI"
+ }
+ */
+
+/**
+ eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoicnR0Iiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3NTMxNjkwOTAsImV4cCI6MTc1MzM0MTg5MH0.LbbsV3lmHbyYLh_5v4KMLaQXh6yX3BYdv5wcex6E_OSiH3lFvj6P3GSG91E4ElVF4ttpd0-M6kM1aoXNMTgY_4lhL9_FcDEKf5wvdPByG3qsebROwcc8Hts3i0c64EsnlNKWnCmlhopdCO-_cvnjhY4Rzs3TfOhLey3s783egB1VHnWP2Y-7bBmZSHX3rZhZH7qoQ8N864AIfmn2LbAeTu2tTwRldHFkK5Dtvjkda10mXIJKalq2vWGosTqy8iHkd3jFZyijsGNAfPTs81iNKI5qPerMfUj5Mtmuc1Qtj5HdgaStdFr6K5k-CZQgzDRAVoAi3xzH74wDZgR0ITJ6bA
  */

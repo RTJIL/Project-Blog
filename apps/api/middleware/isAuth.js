@@ -24,9 +24,6 @@ export const isAuth = (req, res, next) => {
  * So here’s the real deal again:
 When you do this:
 
-js
-Copy
-Edit
 export const isAuth = (req, res, next) => {
   console.log("IS AUTH ✅");
   return passport.authenticate("jwt", { session: false })(req, res, next); // THIS LINE runs it instantly
@@ -38,17 +35,11 @@ export const isAuth = (req, res, next) => {
 Why the (req, res, next)?
 Because:
 
-js
-Copy
-Edit
 passport.authenticate("jwt", { session: false })
 just returns a function. If you don’t call that function, it never runs.
 
 You need to slap it with:
 
-js
-Copy
-Edit
 (req, res, next)
 To actually let it do its job.
  */

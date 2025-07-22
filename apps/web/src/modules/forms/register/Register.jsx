@@ -1,14 +1,18 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import styles from '../login/Login.module.css' // same CSS styles, reuse the drip
 
-export default function SignIn() {
+export default function Register({ onRegisterSuccess }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
 
-  const signIn = async () => {
+  const register = async (e) => {
+    e.preventDefault()
+
     try {
       const res = await fetch(
-        'http://localhost:3000/api.odin.blog/v1/auth/log-in',
+        'http://localhost:3000/api.odin.blog/v1/auth/register', // adjust this route to match your backend
         {
           method: 'POST',
           headers: {
@@ -19,21 +23,22 @@ export default function SignIn() {
         }
       )
 
-      //✅Authorized successfuly, your token: ${token}
-
-      if (!res.ok) throw new Error('server error')
+      if (!res.ok) {
+        const errData = await res.json()
+        throw new Error(errData.message || 'Registration failed')
+      }
 
       const data = await res.json()
-      localStorage.setItem('Bearer', data.token)
-      setMessage(`✅Authorized successfuly`)
+      setMessage('✅ Registered successfully! You can now log in.')
+      onRegisterSuccess?.(data.token) // optional if you auto-login after register
     } catch (err) {
-      setMessage(`⛔Something went wrong: ${err.message}`)
+      setMessage(`⛔ ${err.message}`)
     }
   }
 
   return (
-    <>
-      <form action={signIn}>
+    <div className={styles.formContainer}>
+      <form onSubmit={register} className={styles.form}>
         <input
           type="text"
           name="username"
@@ -50,10 +55,14 @@ export default function SignIn() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Log in</button>
+        <button type="submit">Register</button>
       </form>
 
+      <Link to={'/login'} className={styles.register}>
+        Login
+      </Link>
+
       {message && <p>{message}</p>}
-    </>
+    </div>
   )
 }

@@ -47,6 +47,15 @@
   line-clamp: 2;
 }
 
+.tags {
+  display: flex;
+  gap: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 4px 1px;
+}
+
 .tag {
   color: rgb(178, 191, 202);
   box-shadow: 0 0 0 1px rgba(100, 100, 100, 0.6);
