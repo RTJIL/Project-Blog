@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import styles from './Home.module.css'
 import { Link, useSearchParams } from 'react-router-dom'
+import { buildApiUrl } from 'apps/web/utils/api'
 
 export default function Home({ baseUrl }) {
   const [posts, setPosts] = useState([])
@@ -13,7 +14,10 @@ export default function Home({ baseUrl }) {
 
   useEffect(() => {
     fetch(
-      `${baseUrl}/api.odin.blog/v1/posts/${queryString ? `search?${queryString}` : ''}`,
+      buildApiUrl(
+        `/api.odin.blog/v1/posts/${queryString ? `search?${queryString}` : ''}`,
+        baseUrl
+      ),
       {
         mode: 'cors',
         method: 'GET',

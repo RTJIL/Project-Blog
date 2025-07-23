@@ -1,6 +1,7 @@
 import styles from './PostDetail.module.css'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import { buildApiUrl } from 'apps/web/utils/api.js'
 
 export default function PostDetail({ baseUrl, user }) {
   const [loading, setLoading] = useState(true)
@@ -14,7 +15,7 @@ export default function PostDetail({ baseUrl, user }) {
   useEffect(() => {
     setLoading(true)
 
-    fetch(`${baseUrl}/api.odin.blog/v1/posts/${params.postId}`, {
+    fetch(buildApiUrl(`api.odin.blog/v1/posts/${params.postId}`, baseUrl), {
       mode: 'cors',
       method: 'GET',
       headers: {
