@@ -17,5 +17,10 @@
       "cache": false,
       "persistent": true
     }
+  },
+  "pipeline": {
+    "build": {
+      "outputs": ["apps/web/dist/**"]
+    }
   }
 }
