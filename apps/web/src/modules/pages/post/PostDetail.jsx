@@ -1,7 +1,7 @@
 import styles from './PostDetail.module.css'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { buildApiUrl } from 'apps/web/utils/api.js'
+import { buildApiUrl } from '/src/utils/api.js'
 
 export default function PostDetail({ baseUrl, user }) {
   const [loading, setLoading] = useState(true)
