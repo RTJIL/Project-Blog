@@ -15,7 +15,7 @@ export default function Home({ baseUrl }) {
   useEffect(() => {
     fetch(
       buildApiUrl(
-        `/api.odin.blog/v1/posts/${queryString ? `search?${queryString}` : ''}`,
+        `api.odin.blog/v1/posts/${queryString ? `search?${queryString}` : ''}`,
         baseUrl
       ),
       {

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styles from '../login/Login.module.css'
+import { buildApiUrl } from '/src/utils/api.js'
 
 export default function Register({ onRegisterSuccess, baseUrl }) {
   const [username, setUsername] = useState('')
@@ -11,14 +12,17 @@ export default function Register({ onRegisterSuccess, baseUrl }) {
     e.preventDefault()
 
     try {
-      const res = await fetch(`${baseUrl}/api.odin.blog/v1/auth/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-        mode: 'cors',
-      })
+      const res = await fetch(
+        buildApiUrl(`/api.odin.blog/v1/auth/register`, baseUrl),
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, password }),
+          mode: 'cors',
+        }
+      )
 
       if (!res.ok) {
         const errData = await res.json()
