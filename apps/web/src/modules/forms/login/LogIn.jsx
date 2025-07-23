@@ -9,7 +9,7 @@ export default function LogIn({ onLoginSuccess, baseUrl }) {
 
   const logIn = async () => {
     try {
-      const res = await fetch(`${baseUrl}/api.odin.blog/v1/auth/log-in`, {
+      const res = await fetch(`${baseUrl}api.odin.blog/v1/auth/log-in`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
