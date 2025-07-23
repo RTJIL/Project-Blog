@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import styles from './Home.module.css'
 import { Link, useSearchParams } from 'react-router-dom'
-import { buildApiUrl } from 'apps/web/utils/api'
+import { buildApiUrl } from 'apps/web/utils/api.js'
 
 export default function Home({ baseUrl }) {
   const [posts, setPosts] = useState([])
