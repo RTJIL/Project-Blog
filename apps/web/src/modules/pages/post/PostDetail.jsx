@@ -15,7 +15,7 @@ export default function PostDetail({ baseUrl, user }) {
   useEffect(() => {
     setLoading(true)
 
-    fetch(buildApiUrl(`api.odin.blog/v1/posts/${params.postId}`, baseUrl), {
+    fetch(buildApiUrl(`/api.odin.blog/v1/posts/${params.postId}`, baseUrl), {
       mode: 'cors',
       method: 'GET',
       headers: {

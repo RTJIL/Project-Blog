@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import styles from '../login/Login.module.css' // same CSS styles, reuse the drip
+import styles from '../login/Login.module.css'
 
 export default function Register({ onRegisterSuccess, baseUrl }) {
   const [username, setUsername] = useState('')
@@ -11,17 +11,14 @@ export default function Register({ onRegisterSuccess, baseUrl }) {
     e.preventDefault()
 
     try {
-      const res = await fetch(
-        `${baseUrl}/api.odin.blog/v1/auth/register`, // adjust this route to match your backend
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ username, password }),
-          mode: 'cors',
-        }
-      )
+      const res = await fetch(`${baseUrl}/api.odin.blog/v1/auth/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+        mode: 'cors',
+      })
 
       if (!res.ok) {
         const errData = await res.json()
@@ -30,7 +27,7 @@ export default function Register({ onRegisterSuccess, baseUrl }) {
 
       const data = await res.json()
       setMessage('✅ Registered successfully! You can now log in.')
-      onRegisterSuccess?.(data.token) // optional if you auto-login after register
+      onRegisterSuccess?.(data.token)
     } catch (err) {
       setMessage(`⛔ ${err.message}`)
     }
